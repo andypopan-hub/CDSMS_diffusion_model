@@ -8,10 +8,16 @@ def plot_profile(x, z, color = "r", title = None, output = None):
     plt.xlabel("x")
     plt.ylabel("z")
     if title is not None:
-        plt.title(title)
+        plt.title(title)    
     if output is not None:
         plt.savefig(output)
-plt.show()
+    plt.show()
+
+
+def calculate_stable_time_step(dx, diffusivity):
+    return 0.5 * dx**2 / diffusivity
+    
+
 
 D = 100 #D = Diffusivity
 Lx = 300 #Lx = model domain
@@ -28,10 +34,9 @@ z[x > Lx/2] = z_right
 
 plot_profile(x, z, title = "Inital Profile", output = "inital.png")
 
-nt = 500 #number of time steps
-dt = 0.5 * dx**2 / D #Time step
+dt = calculate_stable_time_step(dx, D)
 
-for t in range(0, nt):
+for t in range(0, dt):
 	z[1:-1] += D * dt / dx ** 2 * (z[:-2] - 2*z[1:-1] + z[2:])
 
 plot_profile(x,z, title = "Final Profile", color = "b", output = "final.png")
