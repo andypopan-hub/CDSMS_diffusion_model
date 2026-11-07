@@ -36,7 +36,7 @@ plot_profile(x, z, title = "Inital Profile", output = "inital.png")
 
 dt = calculate_stable_time_step(dx, D)
 
-for t in range(0, dt):
+for t in range(0):
 	z[1:-1] += D * dt / dx ** 2 * (z[:-2] - 2*z[1:-1] + z[2:])
 
 plot_profile(x,z, title = "Final Profile", color = "b", output = "final.png")
